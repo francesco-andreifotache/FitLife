@@ -1,5 +1,6 @@
 package com.pip.fitnessApplication.entity;
 
+import com.pip.fitnessApplication.dto.ActivityDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,5 +24,16 @@ public class Activity {
 
     private int caloriesBurned;
 
+    public ActivityDto getActivityDto(){
+        ActivityDto activityDto = new ActivityDto();
+
+        activityDto.setId(id);
+        activityDto.setDate(date);
+        activityDto.setSteps(steps);
+        activityDto.setDistance(distance);
+        activityDto.setCaloriesBurned(caloriesBurned);
+
+        return activityDto;
+    }
 
 }
