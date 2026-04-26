@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, NgModule } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -9,11 +9,17 @@ import en from '@angular/common/locales/en';
 
 registerLocaleData(en);
 
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+@NgModule({
+  providers: [provideHttpClient(withInterceptorsFromDi())],
+})
+export class AppModule {}
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideNzI18n(en_US),
   ],
 };

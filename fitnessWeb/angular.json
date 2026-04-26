@@ -3,7 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "d57a0122-38c2-42ec-a1b2-d4be441edebe"
+    "analytics": "d7f69966-4691-40a4-a7d8-f28a5195602b"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -29,13 +29,9 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+              "src/assets"
             ],
-            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "src/styles.scss"],
+            "styles": ["src/styles.scss"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {

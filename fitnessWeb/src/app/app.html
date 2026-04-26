@@ -1,12 +1,46 @@
-<!-- NG-ZORRO -->
-<a
-  href="https://github.com/NG-ZORRO/ng-zorro-antd"
-  target="_blank"
-  style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%"
->
-  <img
-    height="300"
-    alt="logo"
-    src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg"
-  />
-</a>
+<nz-layout class="layout">
+  <nz-sider nzWidth="200px" class="sider">
+    <div class="logo">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
+        alt="Avatar"
+        class="avatar"
+      />
+      <div class="user_info">
+        <strong>John</strong>
+      </div>
+    </div>
+
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item routerLink="/dashboard">
+        <span nz-icon nzType="dashboard"></span>
+        <span>Dashboard</span>
+      </li>
+
+      <li nz-menu-item routerLink="/workout">
+        <span nz-icon nzType="split-cells"></span>
+        <span>Workout</span>
+      </li>
+
+      <li nz-menu-item routerLink="/activity">
+        <span nz-icon nzType="control"></span>
+        <span>Activity</span>
+      </li>
+
+      <li nz-menu-item routerLink="/goal">
+        <span nz-icon nzType="fund"></span>
+        <span>Goal</span>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout class="right-layout">
+    <nz-header class="header"></nz-header>
+
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
