@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { User } from '../../service/user';
 
-
 @Component({
   standalone: true,
   selector: 'app-activity',
@@ -19,8 +18,13 @@ export class Activity {
   };
 
   activityForm!: FormGroup;
+  activities: any;
 
-  constructor(private fb: FormBuilder, private message: NzMessageService,private userService:  User) {}
+  constructor(
+    private fb: FormBuilder,
+    private message: NzMessageService,
+    private userService: User,
+  ) {}
 
   ngOnInit(): void {
     this.activityForm = this.fb.group({
@@ -28,22 +32,31 @@ export class Activity {
       steps: [null, [Validators.required]],
       distance: [null, [Validators.required]],
       date: [null, [Validators.required]],
-  })
-}
+    });
+    this.getActivities();
+  }
 
- submitForm() {
-  console.log('1. submitForm a fost apelat! Datele:', this.activityForm.value);
+  submitForm() {
+    console.log('1. submitForm a fost apelat! Datele:', this.activityForm.value);
 
-  this.userService.postActivity(this.activityForm.value).subscribe({
-    next: (res) => {
-      console.log('2. Răspuns primit de la server:', res);
-      this.message.success('Activity submitted successfully', { nzDuration: 3000 });
-      this.activityForm.reset();
-    },
-    error: (error) => {
-      console.error('3. Eroare de la server:', error);
-      this.message.error('Failed to submit activity', { nzDuration: 3000 });
-    }
-  });
-}
+    this.userService.postActivity(this.activityForm.value).subscribe({
+      next: (res) => {
+        console.log('2. Răspuns primit de la server:', res);
+        this.message.success('Activity submitted successfully', { nzDuration: 3000 });
+        this.activityForm.reset();
+        this.getActivities();
+      },
+      error: (error) => {
+        console.error('3. Eroare de la server:', error);
+        this.message.error('Failed to submit activity', { nzDuration: 3000 });
+      },
+    });
+  }
+
+  getActivities() {
+    this.userService.getActivity().subscribe((res) => {
+      this.activities = res;
+      console.log(this.activities);
+    });
+  }
 }
