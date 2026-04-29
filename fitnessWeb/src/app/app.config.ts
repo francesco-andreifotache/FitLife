@@ -1,9 +1,10 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { provideBrowserGlobalErrorListeners } from '@angular/core';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+
+// Import NzMessageModule instead of provideNzMessageService
 
 import { routes } from './app.routes';
 
@@ -16,11 +17,12 @@ registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(), // L-am pus la loc pe cel din codul tău original
+    // Folosim importProvidersFrom pentru modulele NG-ZORRO
+    provideBrowserGlobalErrorListeners(), 
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withInterceptorsFromDi()), // Mutat aici din vechiul modul
-    provideAnimationsAsync(), // Pentru calendar
-    provideNzI18n(en_US)      // Pentru limba engleză
+    provideHttpClient(withFetch()), 
+    provideAnimationsAsync(), 
+    provideNzI18n(en_US)      
   ],
 };
