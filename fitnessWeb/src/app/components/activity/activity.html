@@ -10,7 +10,7 @@
     <div nz-row>
         <div nz-col nzFlex="2">
             <nz-card nzType="inner" style="margin-top:16px;" nzTitle="Post New Activity">
-                <form nz-form [formGroup]="activityForm" class="custom-form">
+                <form nz-form [formGroup]="activityForm" class="custom-form" (ngSubmit)="submitForm()">
                     <nz-form-item>
                         <nz-form-control nzErrorTip="Please input the calories!">
                             <input type="text" nz-input formControlName="caloriesBurned" placeholder="Enter the calories you burned"/>
