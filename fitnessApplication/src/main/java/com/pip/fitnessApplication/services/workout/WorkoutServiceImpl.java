@@ -8,6 +8,8 @@ import com.pip.fitnessApplication.entity.Workout;
 import com.pip.fitnessApplication.repository.WorkoutRepository;
 
 import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,4 +29,11 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     }
 
+    public List<WorkoutDTO> getWorkouts() {
+        List<Workout> workouts = workoutRepository.findAll();
+
+        return workouts.stream()
+                .map(Workout::getWorkoutDTO)
+                .collect(Collectors.toList());
+    }
 }
