@@ -13,7 +13,5 @@ public class WorkoutDTO {
 
     private int duration;
 
-    private int caloriesBurned;
-
-    
+    private int caloriesBurned;    
 }

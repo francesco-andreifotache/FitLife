@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.pip.fitnessApplication.dto.WorkoutDTO;
 import com.pip.fitnessApplication.services.workout.WorkoutService;
@@ -30,6 +31,12 @@ public class WorkoutController {
         }
     }
 
-    
-
+    @GetMapping("/workouts")
+    public ResponseEntity<?> getWorkouts(){
+        try{
+            return ResponseEntity.ok(workoutService.getWorkouts());
+        } catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
+    }
 }
