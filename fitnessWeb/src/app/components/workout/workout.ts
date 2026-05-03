@@ -44,6 +44,8 @@ export class Workout {
     'Jump Rope',
   ];
 
+  workouts: any;
+
   constructor(
     private fb: FormBuilder,
     private userService: User,
@@ -57,6 +59,13 @@ export class Workout {
       date: [null, [Validators.required]],
       caloriesBurned: [null, [Validators.required]],
     });
+    this.getWorkouts();
+  }
+
+  getWorkouts() {
+    this.userService.getWorkouts().subscribe((res) => {
+      this.workouts = res;
+    });
   }
 
   submitForm(): void {
@@ -64,6 +73,7 @@ export class Workout {
       (res) => {
         this.message.success('Workout posted successfully', { nzDuration: 3000 });
         this.workoutForm.reset();
+        this.getWorkouts();
       },
       (error) => {
         this.message.error('Failed to post workout', { nzDuration: 3000 });

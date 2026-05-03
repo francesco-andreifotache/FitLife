@@ -18,7 +18,7 @@ export class Activity {
   };
 
   activityForm!: FormGroup;
-  activities: any;
+  activities: any[] = [];
 
   constructor(
     private fb: FormBuilder,
