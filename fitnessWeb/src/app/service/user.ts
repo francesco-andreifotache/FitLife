@@ -29,4 +29,12 @@ export class User {
   postGoal(goalDto: any): Observable<any> {
     return this.http.post(BASIC_URL + 'api/goal', goalDto);
   }
+
+  getGoals(): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/goals');
+  }
+
+  updateGoalStatus(id:number): Observable<any> {
+    return this.http.get(BASIC_URL +"api/goal/status/" + id);
+  }
 }
