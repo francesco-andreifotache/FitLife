@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { SharedModule } from '../../shared/shared-module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -24,6 +24,7 @@ export class Activity {
     private fb: FormBuilder,
     private message: NzMessageService,
     private userService: User,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -43,8 +44,10 @@ export class Activity {
       next: (res) => {
         console.log('2. Răspuns primit de la server:', res);
         this.message.success('Activity submitted successfully', { nzDuration: 3000 });
-        this.activityForm.reset();
-        this.getActivities();
+        setTimeout(() => {
+          this.activityForm.reset();
+          this.getActivities();
+        }, 0);
       },
       error: (error) => {
         console.error('3. Eroare de la server:', error);
@@ -55,7 +58,8 @@ export class Activity {
 
   getActivities() {
     this.userService.getActivity().subscribe((res) => {
-      this.activities = res;
+      this.activities = [...res];
+      this.cdr.detectChanges();
       console.log(this.activities);
     });
   }

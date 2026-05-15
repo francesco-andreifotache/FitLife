@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { SharedModule } from '../../shared/shared-module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../service/user';
@@ -23,6 +23,7 @@ export class Goal {
     private fb: FormBuilder,
     private message: NzMessageService,
     private userService: User,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(){
@@ -38,8 +39,11 @@ export class Goal {
   submitForm(): void {
     this.userService.postGoal(this.goalForm.value).subscribe(res => { 
       this.message.success('Goal created successfully', { nzDuration: 3000 });
+
+      setTimeout(() => {
       this.goalForm.reset();
-      this.getAllGoals();
+        this.getAllGoals();
+      }, 0);
     }, error => {
       this.message.error('Failed to create goal', { nzDuration: 3000 });
     });
@@ -47,8 +51,9 @@ export class Goal {
 
   getAllGoals(){
     this.userService.getGoals().subscribe(res => {
-      this.goals = res;
+      this.goals = [...res];
       console.log(this.goals);
+      this.cdr.detectChanges();
     });
   }
 

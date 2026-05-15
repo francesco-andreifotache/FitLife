@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared-module';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -50,6 +50,7 @@ export class Workout {
     private fb: FormBuilder,
     private userService: User,
     private message: NzMessageService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +65,8 @@ export class Workout {
 
   getWorkouts() {
     this.userService.getWorkouts().subscribe((res) => {
-      this.workouts = res;
+      this.workouts = [...res];
+      this.cdr.detectChanges();
     });
   }
 
