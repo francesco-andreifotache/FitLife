@@ -1,0 +1,28 @@
+<div class="auth-container">
+    <nz-card class="auth-card" nzTitle="Intră în contul FitLife">
+        <form nz-form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
+                <nz-form-control nzErrorTip="Introdu o adresă de email validă">
+                    <input nz-input formControlName="email" placeholder="email@exemplu.com" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzRequired>Parolă</nz-form-label>
+                <nz-form-control nzErrorTip="Parola este obligatorie">
+                    <input nz-input type="password" formControlName="password" placeholder="********" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <button nz-button nzType="primary" nzBlock [disabled]="!loginForm.valid">
+                Logare
+            </button>
+
+            <div class="auth-footer">
+                Nu ai cont? <a routerLink="/register">Înregistrează-te aici</a>
+            </div>
+        </form>
+    </nz-card>
+</div>
