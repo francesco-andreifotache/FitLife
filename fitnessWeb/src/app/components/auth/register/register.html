@@ -1,0 +1,42 @@
+<div class="auth-container">
+    <nz-card class="auth-card" nzTitle="Creează un cont FitLife">
+        <form nz-form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzRequired>Nume Complet</nz-form-label>
+                <nz-form-control nzErrorTip="Te rugăm să introduci numele">
+                    <input nz-input formControlName="name" placeholder="Ex: Robert Popa" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
+                <nz-form-control nzErrorTip="Introdu o adresă de email validă">
+                    <input nz-input formControlName="email" placeholder="email@exemplu.com" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzRequired>Parolă</nz-form-label>
+                <nz-form-control nzErrorTip="Parola este obligatorie">
+                    <input nz-input type="password" formControlName="password" placeholder="********" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="24" nzRequired>Confirmă Parola</nz-form-label>
+                <nz-form-control nzErrorTip="Parolele trebuie să coincidă">
+                    <input nz-input type="password" formControlName="checkPassword" placeholder="********" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <button nz-button nzType="primary" nzBlock [disabled]="!registerForm.valid">
+                Înregistrare
+            </button>
+
+            <div class="auth-footer">
+                Ai deja cont? <a routerLink="/login">Loghează-te aici</a>
+            </div>
+        </form>
+    </nz-card>
+</div>

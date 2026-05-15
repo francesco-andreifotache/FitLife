@@ -1,11 +1,8 @@
 <nz-layout class="layout">
-  <nz-sider nzWidth="200px" class="sider">
+
+  <nz-sider *ngIf="!isAuthPage()" nzWidth="200px" class="sider">
     <div class="logo">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
-        alt="Avatar"
-        class="avatar"
-      />
+      <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" alt="Avatar" class="avatar" />
       <div class="user_info">
         <strong>John</strong>
       </div>
@@ -31,16 +28,22 @@
         <span nz-icon nzType="fund"></span>
         <span>Goal</span>
       </li>
+
+      <li nz-menu-item (click)="logout()" style="margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1);">
+        <span nz-icon nzType="logout" style="color: #ff4d4f;"></span> <span style="color: #ff4d4f;">Logout</span>
+      </li>
     </ul>
   </nz-sider>
 
   <nz-layout class="right-layout">
-    <nz-header class="header"></nz-header>
+
+    <nz-header *ngIf="!isAuthPage()" class="header"></nz-header>
 
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
     </nz-content>
+
   </nz-layout>
 </nz-layout>
