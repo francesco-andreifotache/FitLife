@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.pip.fitnessApplication.dto.WorkoutDTO;
 import com.pip.fitnessApplication.services.workout.WorkoutService;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,19 +23,19 @@ public class WorkoutController {
     
     private final WorkoutService workoutService;
 
-    @PostMapping("/workout")
-    public ResponseEntity<?> postWorkout(@RequestBody WorkoutDTO dto){
+    @PostMapping("/workout/{userId}")
+    public ResponseEntity<?> postWorkout(@PathVariable Long userId, @RequestBody WorkoutDTO dto){
         try{
-            return ResponseEntity.ok(workoutService.postWorkout(dto));
+            return ResponseEntity.ok(workoutService.postWorkout(dto, userId));
         } catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
         }
     }
 
-    @GetMapping("/workouts")
-    public ResponseEntity<?> getWorkouts(){
+    @GetMapping("/workouts/{userId}")
+    public ResponseEntity<?> getWorkouts(@PathVariable Long userId){
         try{
-            return ResponseEntity.ok(workoutService.getWorkouts());
+            return ResponseEntity.ok(workoutService.getWorkouts(userId));
         } catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
         }

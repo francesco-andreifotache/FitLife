@@ -21,28 +21,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class GoalController {
     private final GoalService goalService;
 
-    @PostMapping("/goal")
-    public ResponseEntity<?> postGoal(@RequestBody GoalDto dto){
+    @PostMapping("/goal/{userId}")
+    public ResponseEntity<?> postGoal(@PathVariable Long userId, @RequestBody GoalDto dto){
         try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(goalService.postGoal(dto));
+            return ResponseEntity.status(HttpStatus.CREATED).body(goalService.postGoal(dto, userId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
-    @GetMapping("/goals")
-    public ResponseEntity<?> getGoals(){
+    @GetMapping("/goals/{userId}")
+    public ResponseEntity<?> getGoals(@PathVariable Long userId){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(goalService.getGoal());
+            return ResponseEntity.status(HttpStatus.OK).body(goalService.getGoal(userId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
         }
     }
 
-    @GetMapping("/goal/status/{id}")
-    public ResponseEntity<?> updateStatus(@PathVariable Long id){
+    @GetMapping("/goal/status/{id}/{userId}")
+    public ResponseEntity<?> updateStatus(@PathVariable Long id, @PathVariable Long userId){
         try{
-            return ResponseEntity.ok(goalService.updateStatus(id));
+            return ResponseEntity.ok(goalService.updateStatus(id, userId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

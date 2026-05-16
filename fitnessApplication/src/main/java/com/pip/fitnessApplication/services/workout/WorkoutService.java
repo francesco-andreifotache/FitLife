@@ -4,7 +4,7 @@ import com.pip.fitnessApplication.dto.WorkoutDTO;
 import java.util.List;
 
 public interface WorkoutService {
-    WorkoutDTO postWorkout(WorkoutDTO workoutDTO);
+    WorkoutDTO postWorkout(WorkoutDTO workoutDTO, Long userId);
 
-    List<WorkoutDTO> getWorkouts();
+    List<WorkoutDTO> getWorkouts(Long userId);
 }

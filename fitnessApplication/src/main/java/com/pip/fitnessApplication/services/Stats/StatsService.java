@@ -4,6 +4,6 @@ import com.pip.fitnessApplication.dto.GraphDto;
 import com.pip.fitnessApplication.dto.StatsDto;
 
 public interface StatsService {
-    StatsDto getStats();
-    GraphDto getGraphStats();
+    StatsDto getStats(Long userId);
+    GraphDto getGraphStats(Long userId);
 }

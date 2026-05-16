@@ -25,15 +25,15 @@ public class StatsServiceImplementation implements StatsService {
     private final ActivityRepository activityRepository;
     private final WorkoutRepository workoutRepository;
 
-    public StatsDto getStats(){
-        Long achivedGoals = goalRepository.countAchievedGoals();
-        Long notAchivedGoals = goalRepository.countNotAchievedGoals();
+    public StatsDto getStats(Long userId){
+        Long achivedGoals = goalRepository.countAchievedGoals(userId);
+        Long notAchivedGoals = goalRepository.countNotAchievedGoals(userId);
 
-        Integer totalSteps = activityRepository.getTotalSteps();
-        Double totalDistance = activityRepository.getTotalDistance();
-        Integer totalActivityCaloriesBurned = activityRepository.getTotalCaloriesBurned();
-        Integer totalDuration = workoutRepository.getTotalDuration();
-        Integer totalWorkoutCaloriesBurned = workoutRepository.getTotalCaloriesBurned();
+        Integer totalSteps = activityRepository.getTotalSteps(userId);
+        Double totalDistance = activityRepository.getTotalDistance(userId);
+        Integer totalActivityCaloriesBurned = activityRepository.getTotalCaloriesBurned(userId);
+        Integer totalDuration = workoutRepository.getTotalDuration(userId);
+        Integer totalWorkoutCaloriesBurned = workoutRepository.getTotalCaloriesBurned(userId);
 
         int totalCaloriesBurned = (totalActivityCaloriesBurned != null ? totalActivityCaloriesBurned : 0) + 
                                   (totalWorkoutCaloriesBurned != null ? totalWorkoutCaloriesBurned : 0);
@@ -48,11 +48,11 @@ public class StatsServiceImplementation implements StatsService {
         return dto;
     }
 
-    public GraphDto getGraphStats(){
+    public GraphDto getGraphStats(Long userId){
         Pageable pageable = PageRequest.of(0, 7);
 
-        List<Workout> workouts = workoutRepository.findLast7Workouts(pageable);
-        List<Activity> activities = activityRepository.findLast7Activities(pageable);
+        List<Workout> workouts = workoutRepository.findLast7Workouts(userId, pageable);
+        List<Activity> activities = activityRepository.findLast7Activities(userId, pageable);
 
         GraphDto graphDto = new GraphDto();
         graphDto.setWorkouts(workouts.stream().map(Workout::getWorkoutDTO).toList());
