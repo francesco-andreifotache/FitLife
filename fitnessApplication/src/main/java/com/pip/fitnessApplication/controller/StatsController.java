@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import com.pip.fitnessApplication.dto.GraphDto;
 import com.pip.fitnessApplication.services.Stats.StatsService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api")
@@ -18,14 +19,14 @@ public class StatsController {
     
     private final StatsService statsService;
 
-    @GetMapping("/stats")
-    public ResponseEntity<?> getStats() {
-        return ResponseEntity.ok(statsService.getStats());
+    @GetMapping("/stats/{userId}")
+    public ResponseEntity<?> getStats(@PathVariable Long userId) {
+        return ResponseEntity.ok(statsService.getStats(userId));
     }
 
-    @GetMapping("/graphs")
-    public ResponseEntity<?> getGraphStats() {
-        GraphDto graphDto = statsService.getGraphStats();
+    @GetMapping("/graphs/{userId}")
+    public ResponseEntity<?> getGraphStats(@PathVariable Long userId) {
+        GraphDto graphDto = statsService.getGraphStats(userId);
 
         if(graphDto != null){
             return ResponseEntity.ok(graphDto);

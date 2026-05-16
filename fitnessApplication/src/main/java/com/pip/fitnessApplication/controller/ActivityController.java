@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class ActivityController {
     private final ActivityService activityService;
 
-    @PostMapping("/activity")
-    public ResponseEntity<?> postActivity(@RequestBody ActivityDto dto){
-        ActivityDto createActivity = activityService.postActivity(dto);
+    @PostMapping("/activity/{userId}")
+    public ResponseEntity<?> postActivity(@PathVariable Long userId, @RequestBody ActivityDto dto){
+        ActivityDto createActivity = activityService.postActivity(dto, userId);
 
         if(createActivity != null){
             return  ResponseEntity.status(HttpStatus.CREATED).body(createActivity);
@@ -25,10 +25,10 @@ public class ActivityController {
         }
     }
 
-    @GetMapping("/activities")
-    public ResponseEntity<?> getActivities(){
+    @GetMapping("/activities/{userId}")
+    public ResponseEntity<?> getActivities(@PathVariable Long userId){
         try{
-            return ResponseEntity.ok(activityService.getActivities());
+            return ResponseEntity.ok(activityService.getActivities(userId));
         } catch(Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
         }

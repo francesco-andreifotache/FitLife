@@ -5,7 +5,7 @@ import com.pip.fitnessApplication.dto.ActivityDto;
 import java.util.List;
 
 public interface ActivityService {
-    ActivityDto postActivity(ActivityDto dto);
+    ActivityDto postActivity(ActivityDto dto, Long userId);
 
-    List<ActivityDto> getActivities();
+    List<ActivityDto> getActivities(Long userId);
 }
