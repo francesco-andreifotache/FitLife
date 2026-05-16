@@ -23,7 +23,7 @@ public class User {
     // Aici vom adăuga rolul (ex: ADMIN sau USER), util pentru mai târziu
     private String role;
 
-    // O metodă rapidă de conversie, așa cum ai făcut și la Workout
+    // O metodă rapidă de conversie, așa cum am făcut și la Workout
     public UserDTO getUserDTO() {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(this.id);

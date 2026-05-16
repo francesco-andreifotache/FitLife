@@ -21,7 +21,7 @@ public class AuthServiceImpl implements AuthService {
         User user = new User();
         user.setEmail(signupRequest.getEmail());
         user.setName(signupRequest.getName());
-        // Aici se aplică "magia" care ascunde parola!
+        // Aici se aplică care ascunde parola!
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
         user.setRole("USER"); // Toți vor fi USER normali la început
 
