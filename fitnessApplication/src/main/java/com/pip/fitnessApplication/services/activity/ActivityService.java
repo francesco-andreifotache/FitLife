@@ -8,4 +8,6 @@ public interface ActivityService {
     ActivityDto postActivity(ActivityDto dto, Long userId);
 
     List<ActivityDto> getActivities(Long userId);
+
+    void deleteActivity(Long id);
 }

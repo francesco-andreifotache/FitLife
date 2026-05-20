@@ -24,4 +24,14 @@ export class App {
     // 2. Îl trimitem înapoi pe pagina de Login
     this.router.navigateByUrl('/login');
   }
+
+  getUserName(): string {
+    // Verificăm dacă obiectul 'window' (browserul) există
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const name = localStorage.getItem('userName');
+      return name ? name : 'Utilizator';
+    }
+    // Dacă suntem pe server (SSR), returnăm un text standard
+    return 'Utilizator'; 
+  }
 }

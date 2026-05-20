@@ -67,7 +67,13 @@
             km - Steps:<strong>{{ activity.steps }}</strong> - Date:<strong>{{
               activity.date | date
             }}</strong>
+            <div style="float: right">
+              <button nz-button nzType="primary" nzDanger nzShape="circle" (click)="deleteActivity(activity.id)">
+                <span nz-icon nzType="delete"></span>
+              </button>
+            </div>
           </div>
+          
         </div>
       </nz-card>
     </div>

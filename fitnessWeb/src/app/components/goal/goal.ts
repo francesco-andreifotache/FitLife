@@ -17,7 +17,7 @@ export class Goal {
   };
 
   goalForm!: FormGroup;
-  goals: any;
+  goals: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -51,9 +51,8 @@ export class Goal {
 
   getAllGoals(){
     this.userService.getGoals().subscribe(res => {
-      this.goals = [...res];
-      console.log(this.goals);
-      this.cdr.detectChanges();
+      this.goals = res; // Salvăm datele curat
+      this.cdr.markForCheck();
     });
   }
 
@@ -64,6 +63,18 @@ export class Goal {
     }, error => {
       this.message.error('Failed to update goal status', { nzDuration: 3000 });
     })
+  }
+
+  deleteGoal(id: number) {
+    this.userService.deleteGoal(id).subscribe({
+      next: (res) => {
+        this.message.success("Obiectivul a fost șters!", { nzDuration: 3000 });
+        this.getAllGoals(); // Reîncărcăm lista ca să dispară de pe ecran
+      },
+      error: (err) => {
+        this.message.error("Eroare la ștergerea obiectivului", { nzDuration: 3000 });
+      }
+    });
   }
 
 }

@@ -17,4 +17,6 @@ public class GoalDto{
 
     private boolean achieved;
 
+    private Long userId;
+
 }

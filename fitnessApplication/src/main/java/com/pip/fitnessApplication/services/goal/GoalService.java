@@ -7,4 +7,6 @@ public interface GoalService {
     GoalDto postGoal(GoalDto goalDto, Long userId);
     List<GoalDto> getGoal(Long userId);
     GoalDto updateStatus(Long id, Long userId);
+
+    void deleteGoal(Long id);
 }

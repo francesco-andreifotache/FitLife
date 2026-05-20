@@ -7,4 +7,6 @@ public interface WorkoutService {
     WorkoutDTO postWorkout(WorkoutDTO workoutDTO, Long userId);
 
     List<WorkoutDTO> getWorkouts(Long userId);
+
+    void deleteWorkout(Long id);
 }

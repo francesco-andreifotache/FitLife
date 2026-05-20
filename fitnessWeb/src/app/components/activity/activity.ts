@@ -41,7 +41,14 @@ export class Activity {
   submitForm() {
     console.log('1. submitForm a fost apelat! Datele:', this.activityForm.value);
 
-    this.userService.postActivity(this.activityForm.value).subscribe({
+    const currentUserId = localStorage.getItem('userId');
+
+    const activityData = {
+    ...this.activityForm.value,
+    userId: currentUserId ? Number(currentUserId) : null
+    };
+
+    this.userService.postActivity(activityData).subscribe({
       next: (res) => {
         console.log('2. Răspuns primit de la server:', res);
         this.message.success('Activity submitted successfully', { nzDuration: 3000 });
@@ -59,9 +66,21 @@ export class Activity {
 
   getActivities() {
     this.userService.getActivity().subscribe((res) => {
-      this.activities = [...res];
-      this.cdr.detectChanges();
+      this.activities = res;
+      this.cdr.markForCheck();
       console.log(this.activities);
+    });
+  }
+
+  deleteActivity(id: number) {
+    this.userService.deleteActivity(id).subscribe({
+      next: (res) => {
+        this.message.success("Activitatea a fost ștearsă!", { nzDuration: 3000 });
+        this.getActivities(); // Reîncărcăm lista ca să dispară de pe ecran
+      },
+      error: (err) => {
+        this.message.error("Eroare la ștergere", { nzDuration: 3000 });
+      }
     });
   }
 }

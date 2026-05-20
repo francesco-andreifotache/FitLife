@@ -40,4 +40,9 @@ public class WorkoutServiceImpl implements WorkoutService {
                 .map(Workout::getWorkoutDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteWorkout(Long id) {
+        workoutRepository.deleteById(id);
+    }
 }

@@ -34,6 +34,12 @@ export class Login {
   submitForm() {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
+        console.log("Date primite de la backend:", res);
+
+        localStorage.setItem('userId', res.userId); 
+        localStorage.setItem('userName', res.name);
+        localStorage.setItem('token', res.jwt);
+
         this.message.success("Te-ai logat cu succes!", { nzDuration: 3000 });
         // Te teleportăm înapoi în aplicație
         this.router.navigateByUrl('/activity');

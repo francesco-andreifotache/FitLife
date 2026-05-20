@@ -59,6 +59,7 @@ public class AuthController {
         try {
             // Încercăm să autentificăm utilizatorul (aici se face comparația de parole
             // ascunsă de noi)
+            
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         } catch (BadCredentialsException e) {
@@ -77,6 +78,7 @@ public class AuthController {
             response.put("jwt", jwt);
             response.put("userId", optionalUser.get().getId());
             response.put("role", optionalUser.get().getRole());
+            response.put("name", optionalUser.get().getName());
 
             return ResponseEntity.ok(response);
         }

@@ -15,4 +15,6 @@ public class ActivityDto {
     private int distance;
 
     private int caloriesBurned;
+
+    private Long userId;
 }

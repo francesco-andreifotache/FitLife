@@ -65,8 +65,8 @@ export class Workout {
 
   getWorkouts() {
     this.userService.getWorkouts().subscribe((res) => {
-      this.workouts = [...res];
-      this.cdr.detectChanges();
+      this.workouts = res;
+      this.cdr.markForCheck();
     });
   }
 
@@ -82,4 +82,17 @@ export class Workout {
       },
     );
   }
+
+  deleteWorkout(id: number) {
+    this.userService.deleteWorkout(id).subscribe({
+      next: (res) => {
+        this.message.success("Antrenamentul a fost șters!", { nzDuration: 3000 });
+        this.getWorkouts(); // Asigură-te că așa se numește funcția ta care aduce lista
+      },
+      error: (err) => {
+        this.message.error("Eroare la ștergerea antrenamentului", { nzDuration: 3000 });
+      }
+    });
+  }
+
 }

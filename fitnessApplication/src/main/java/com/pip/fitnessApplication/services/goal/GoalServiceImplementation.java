@@ -52,4 +52,9 @@ public class GoalServiceImplementation implements GoalService {
         }
         throw new EntityNotFoundException("Goal not found");
     }
+
+    @Override
+    public void deleteGoal(Long id) {
+        goalRepository.deleteById(id);
+    }
 }

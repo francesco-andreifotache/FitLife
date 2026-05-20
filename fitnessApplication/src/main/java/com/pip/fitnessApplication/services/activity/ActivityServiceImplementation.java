@@ -35,4 +35,9 @@ public class ActivityServiceImplementation implements ActivityService{
         List<Activity> activities = activityRepository.findAllByUserId(userId);
         return activities.stream().map(Activity::getActivityDto).collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteActivity(Long id) {
+    activityRepository.deleteById(id);
+}
 }

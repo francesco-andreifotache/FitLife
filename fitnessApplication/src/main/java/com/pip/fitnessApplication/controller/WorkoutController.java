@@ -3,6 +3,7 @@ package com.pip.fitnessApplication.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,16 @@ public class WorkoutController {
             return ResponseEntity.ok(workoutService.getWorkouts(userId));
         } catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
+    }
+
+    @DeleteMapping("/workout/{id}")
+    public ResponseEntity<?> deleteWorkout(@PathVariable Long id) {
+        try {
+            workoutService.deleteWorkout(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Eroare la ștergerea workout-ului");
         }
     }
 }

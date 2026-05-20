@@ -33,4 +33,14 @@ public class ActivityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
         }
     }
+
+    @DeleteMapping("/activity/{id}")
+    public ResponseEntity<?> deleteActivity(@PathVariable Long id) {
+        try {
+            activityService.deleteActivity(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Eroare la ștergerea activității");
+        }
+    }
 }

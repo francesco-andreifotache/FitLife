@@ -47,8 +47,12 @@ export class Register {
     // Folosim authService în loc de userService
     this.authService.register(this.registerForm.value).subscribe({
       next: (res) => {
+        localStorage.setItem('userId', res.userId);
+        localStorage.setItem('userName', res.name);
+        localStorage.setItem('token', res.jwt);
+
         this.message.success("Cont creat cu succes! Te poți loga.", { nzDuration: 3000 });
-        this.router.navigateByUrl('/activity'); // Navigăm către dashboard după înregistrare
+        this.router.navigateByUrl('/login'); // Navigăm către dashboard după înregistrare
       },
       error: (err) => {
         this.message.error("Eroare la înregistrare: " + err.error, { nzDuration: 3000 });
