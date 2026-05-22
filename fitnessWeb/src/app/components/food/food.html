@@ -1,0 +1,83 @@
+<div>
+    <div>
+        <h1 nz-card-grid [ngStyle]="gridStyle">Diet & Nutrition</h1>
+    </div>
+    <div nz-row>
+        <div nz-col nzFlex="2">
+            <nz-card nzType="inner" style="margin-left: 16px" nzTitle="Adaugă o masă nouă">
+                <form nz-Form [formGroup]="foodForm" class="custom-form" (ngSubmit)="submitForm()">
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Introduceți numele alimentului!">
+                            <nz-input-group [nzSuffix]="suffixSearchButton">
+                                <input type="text" nz-input placeholder="Ex: Avocado, Chicken, Apple..."
+                                    formControlName="name" />
+                            </nz-input-group>
+                            <ng-template #suffixSearchButton>
+                                <button nz-button nzType="primary" type="button" (click)="searchAPI()"
+                                    [nzLoading]="isSearching">Caută</button>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Obligatoriu!">
+                            <input nz-input type="number" placeholder="Calorii (kcal)" formControlName="calories" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Obligatoriu!">
+                            <input nz-input type="number" step="0.1" placeholder="Proteine (g)"
+                                formControlName="protein" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Obligatoriu!">
+                            <input nz-input type="number" step="0.1" placeholder="Carbohidrați (g)"
+                                formControlName="carbs" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Obligatoriu!">
+                            <input nz-input type="number" step="0.1" placeholder="Grăsimi (g)" formControlName="fat" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Selectați data!">
+                            <nz-date-picker formControlName="date" style="width: 100%"
+                                placeholder="Selectează data mesei"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <button nz-button nzType="primary" nzBlock class="w-100" [disabled]="foodForm.invalid">
+                        Salvează Masa
+                    </button>
+                </form>
+            </nz-card>
+        </div>
+
+        <div nz-col nzFlex="3" style="margin-left: 20px">
+            <nz-card nzType="inner" style="margin-top: 16px" nzTitle="Istoric Mese">
+                <div nz-card-grid style="width: 100%" *ngFor="let food of foods">
+                    <div nz-col nzSpan="30">
+                        <strong>{{ food.name }}</strong> ({{ food.date | date:'dd MMM yyyy' }})
+                        <br />
+                        Calorii: <strong>{{ food.calories }}</strong> |
+                        P: {{ food.protein }}g |
+                        C: {{ food.carbs }}g |
+                        F: {{ food.fat }}g
+
+                        <button nz-button nzType="primary" nzDanger nzShape="circle" (click)="deleteFood(food.id)"
+                            style="margin-left: 15px; float: right;">
+                            <span nz-icon nzType="delete"></span>
+                        </button>
+                    </div>
+                </div>
+            </nz-card>
+        </div>
+    </div>
+</div>

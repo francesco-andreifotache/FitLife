@@ -5,6 +5,7 @@ import { Goal } from './components/goal/goal';
 import { Register } from './components/auth/register/register';
 import { Login } from './components/auth/login/login';
 import { Dashboard } from './components/dashboard/dashboard';
+import { Food } from './components/food/food';
 
 export const routes: Routes = [
   { path: 'activity', component: Activity },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'dashboard', component: Dashboard },
   { path: 'register', component: Register },
   { path: 'login', component: Login },
+  { path: 'food', component: Food },
 ];
