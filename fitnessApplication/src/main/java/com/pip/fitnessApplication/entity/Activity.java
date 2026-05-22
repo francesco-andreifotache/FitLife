@@ -27,7 +27,7 @@ public class Activity {
 
     private int caloriesBurned;
 
-    public ActivityDto getActivityDto(){
+    public ActivityDto getActivityDto() {
         ActivityDto activityDto = new ActivityDto();
 
         activityDto.setId(id);
@@ -42,4 +42,5 @@ public class Activity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
 }
