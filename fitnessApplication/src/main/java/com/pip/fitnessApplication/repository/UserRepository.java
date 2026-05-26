@@ -8,8 +8,5 @@ import com.pip.fitnessApplication.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    // Această metodă va fi generată automat de Spring Boot
-    // Ne ajută să găsim un user după email când dă Login
     Optional<User> findFirstByEmail(String email);
-
 }
