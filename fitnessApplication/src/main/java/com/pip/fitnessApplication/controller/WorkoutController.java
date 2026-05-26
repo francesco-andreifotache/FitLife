@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.RequiredArgsConstructor;
 
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class WorkoutController {
+    
     
     private final WorkoutService workoutService;
 
@@ -33,6 +35,7 @@ public class WorkoutController {
         }
     }
 
+    
     @GetMapping("/workouts/{userId}")
     public ResponseEntity<?> getWorkouts(@PathVariable Long userId){
         try{
@@ -42,13 +45,14 @@ public class WorkoutController {
         }
     }
 
+    
     @DeleteMapping("/workout/{id}")
     public ResponseEntity<?> deleteWorkout(@PathVariable Long id) {
         try {
             workoutService.deleteWorkout(id);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Eroare la ștergerea workout-ului");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Eroare la stergerea workout-ului");
         }
     }
 }

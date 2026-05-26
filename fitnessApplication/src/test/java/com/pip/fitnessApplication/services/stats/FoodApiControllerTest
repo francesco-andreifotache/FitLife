@@ -1,0 +1,132 @@
+package com.pip.fitnessApplication.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pip.fitnessApplication.dto.FoodDto;
+import com.pip.fitnessApplication.dto.FoodResponseDto;
+import com.pip.fitnessApplication.services.food.FoodApiService;
+import com.pip.fitnessApplication.services.food.FoodService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.List;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@ExtendWith(MockitoExtension.class)
+public class FoodApiControllerTest {
+
+    private MockMvc mockMvc;
+
+    @Mock
+    private FoodApiService foodApiService;
+
+    @Mock
+    private FoodService foodService;
+
+    @InjectMocks
+    private FoodApiController foodApiController;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @BeforeEach
+    public void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(foodApiController).build();
+    }
+
+    @Test
+    public void testSearchFood_Success() throws Exception {
+        String query = "apple";
+        FoodResponseDto mockResponse = new FoodResponseDto(); 
+
+        Mockito.when(foodApiService.searchFood(query)).thenReturn(mockResponse);
+
+        mockMvc.perform(get("/api/food/search/{query}", query))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testSearchFood_NotFound() throws Exception {
+        String query = "unknown_food";
+        Mockito.when(foodApiService.searchFood(query)).thenReturn(null);
+
+        mockMvc.perform(get("/api/food/search/{query}", query))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Alimentul nu a fost găsit în baza de date Edamam."));
+    }
+
+    @Test
+    public void testPostFood_Success() throws Exception {
+        Long userId = 1L;
+        FoodDto inputDto = new FoodDto();
+        inputDto.setName("Banana");
+        inputDto.setCalories(105);
+
+        FoodDto savedDto = new FoodDto();
+        savedDto.setId(100L);
+        savedDto.setName("Banana");
+
+        Mockito.when(foodService.postFood(Mockito.any(FoodDto.class), Mockito.eq(userId))).thenReturn(savedDto);
+
+        mockMvc.perform(post("/api/food/{userId}", userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(inputDto)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(100L))
+                .andExpect(jsonPath("$.name").value("Banana"));
+    }
+
+    @Test
+    public void testPostFood_Failure() throws Exception {
+        Long userId = 1L;
+        FoodDto inputDto = new FoodDto();
+
+        Mockito.when(foodService.postFood(Mockito.any(FoodDto.class), Mockito.eq(userId)))
+                .thenThrow(new RuntimeException("Database error"));
+
+        mockMvc.perform(post("/api/food/{userId}", userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(inputDto)))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("Database error"));
+    }
+
+    @Test
+    public void testGetFoods_Success() throws Exception {
+        Long userId = 1L;
+        List<FoodDto> mockList = List.of(new FoodDto(), new FoodDto());
+
+        Mockito.when(foodService.getFoods(userId)).thenReturn(mockList);
+
+        mockMvc.perform(get("/api/food/user/{userId}", userId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(2));
+    }
+
+    @Test
+    public void testDeleteFood_Success() throws Exception {
+        Long foodId = 5L;
+        Mockito.doNothing().when(foodService).deleteFood(foodId);
+
+        mockMvc.perform(delete("/api/food/{id}", foodId))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteFood_Failure() throws Exception {
+        Long foodId = 5L;
+        Mockito.doThrow(new RuntimeException("Error")).when(foodService).deleteFood(foodId);
+
+        mockMvc.perform(delete("/api/food/{id}", foodId))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("Eroare la stergere"));
+    }
+}

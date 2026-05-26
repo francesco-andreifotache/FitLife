@@ -21,14 +21,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Căutăm email-ul în baza noastră de date
+        
         Optional<User> optionalUser = userRepository.findFirstByEmail(email);
 
         if (optionalUser.isEmpty()) {
             throw new UsernameNotFoundException("Nu s-a găsit niciun utilizator", null);
         }
 
-        // Dacă îl găsim, îl transformăm în formatul pe care îl înțelege Spring Security
+    
         return new org.springframework.security.core.userdetails.User(
                 optionalUser.get().getEmail(),
                 optionalUser.get().getPassword(),

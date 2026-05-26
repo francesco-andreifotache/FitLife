@@ -26,7 +26,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/auth") // Toate link-urile de aici vor începe cu /api/auth
+@RequestMapping("/api/auth") 
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class AuthController {
@@ -39,26 +39,25 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signupUser(@RequestBody SignupRequest signupRequest) {
-        // 1. Verificăm dacă adresa de email e deja folosită
+        
         if (authService.hasUserWithEmail(signupRequest.getEmail())) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("User already exists with this email!");
         }
 
-        // 2. Creăm utilizatorul
+        
         UserDTO createdUser = authService.createUser(signupRequest);
         if (createdUser == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not created!");
         }
 
-        // 3. Returnăm succes
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
         try {
-            // Încercăm să autentificăm utilizatorul (aici se face comparația de parole
-            // ascunsă de noi)
+            
             
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
@@ -66,13 +65,11 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email sau parolă incorecte!");
         }
 
-        // Dacă a ajuns aici, înseamnă că parola e corectă! Extragem datele și generăm
-        // token-ul
+        
         final UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
         Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
-        // Trimitem înapoi către Angular un colet cu Token-ul și ID-ul utilizatorului
         if (optionalUser.isPresent()) {
             Map<String, Object> response = new HashMap<>();
             response.put("jwt", jwt);
