@@ -63,10 +63,12 @@
             Calories Burned: <strong>{{ workout.caloriesBurned }}</strong> - Duration:
             <strong>{{ workout.duration }}</strong> - Date:
             <strong>{{ workout.date | date }}</strong> - Type: <strong>{{ workout.type }}</strong>
-
-            <button nz-button nzType="primary" nzDanger nzShape="circle" (click)="deleteWorkout(workout.id)">
-              <span nz-icon nzType="delete"></span>
-            </button>
+            
+            <div style="float: right">
+              <button nz-button nzType="primary" nzDanger nzShape="circle" (click)="deleteWorkout(workout.id)">
+                <span nz-icon nzType="delete"></span>
+              </button>
+            </div>
           </div>
         </div>
       </nz-card>
