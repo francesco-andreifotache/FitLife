@@ -41,8 +41,8 @@ export class Login {
         localStorage.setItem('token', res.jwt);
 
         this.message.success("Te-ai logat cu succes!", { nzDuration: 3000 });
-        // Te teleportăm înapoi în aplicație
-        this.router.navigateByUrl('/activity');
+        
+        this.router.navigateByUrl('/dashboard');
       },
       error: (err) => {
         this.message.error("Email sau parolă incorecte!", { nzDuration: 3000 });
