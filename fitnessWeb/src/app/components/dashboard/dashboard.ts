@@ -6,6 +6,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { SharedModule } from '../../shared/shared-module';
 import { CategoryScale, Chart } from 'chart.js/auto';
 
+// 1. Am lăsat DOAR importul pentru serviciul de export Excel
+import { ExportService } from '../../service/export.service';
+
 Chart.register(CategoryScale);
 
 @Component({
@@ -27,11 +30,13 @@ export class Dashboard implements OnInit {
   workoutChartInstance: any;
   activityChartInstance: any;
 
+  // 2. În constructor am lăsat doar exportService
   constructor(
     private userService: User,
     private datePipe: DatePipe,
     private cdr: ChangeDetectorRef,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private exportService: ExportService   
   ) {}
 
   ngOnInit() {
@@ -54,9 +59,39 @@ export class Dashboard implements OnInit {
     });
   }
 
+  // 3. Metoda citește acum ACUM direct din window.localStorage
+  downloadReport() {
+    const userId = window.localStorage.getItem('userId'); 
+    
+    if (userId) {
+      this.exportService.exportExcel(Number(userId)).subscribe({
+        next: (blob: Blob) => {
+          const a = document.createElement('a');
+          const objectUrl = URL.createObjectURL(blob);
+          a.href = objectUrl;
+          
+          // Generăm un nume NOU de fiecare dată, bazat pe ora curentă
+          const acum = new Date().toLocaleTimeString().replace(/:/g, '-');
+          a.download = `FitLife_Raport_${acum}.xlsx`;
+          
+          // Adăugăm elementul în pagină temporar pentru a forța descărcarea curată
+          document.body.appendChild(a);
+          a.click();
+          
+          // Curățăm memoria browserului imediat după
+          document.body.removeChild(a);
+          URL.revokeObjectURL(objectUrl);
+        },
+        error: (err) => {
+          console.error("Eroare la descărcarea fișierului Excel:", err);
+        }
+      });
+    } else {
+      alert("Eroare: Nu s-a găsit niciun utilizator logat în sistem!");
+    }
+  }
 
   createLineChart() {
-
     if (this.workoutChartInstance) {
       this.workoutChartInstance.destroy();
     }
@@ -111,7 +146,7 @@ export class Dashboard implements OnInit {
             fill: false,
             borderWidth: 2,
             backgroundColor: 'rgba(255, 100, 200, 0.6)',
-            borderColor: 'rgba(255, 0, 0, 1)',
+            borderColor: 'rgba(255, 0, 100, 1)',
           },
           {
             label: 'Steps',
@@ -139,8 +174,6 @@ export class Dashboard implements OnInit {
         }
       }
     });
-
-  
   }
 
   getStats() {

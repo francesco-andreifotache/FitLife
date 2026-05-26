@@ -77,5 +77,24 @@ export class User {
     return this.http.delete(BASIC_URL + 'api/goal/' + id);
   }
 
+
+  // --- Metode pentru secțiunea FOOD ---
+
+  searchFood(query: string): Observable<any> {
+    return this.http.get(BASIC_URL + `api/food/search/${query}`);
+  }
+
+  postFood(foodDto: any): Observable<any> {
+    return this.http.post(BASIC_URL + `api/food/${this.getUserId()}`, foodDto);
+  }
+
+  getFoods(): Observable<any> {
+    return this.http.get(BASIC_URL + `api/food/user/${this.getUserId()}`);
+  }
+
+  deleteFood(id: number): Observable<any> {
+    return this.http.delete(BASIC_URL + `api/food/${id}`);
+  }
+
   
 }

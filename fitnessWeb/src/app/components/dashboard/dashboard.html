@@ -1,3 +1,11 @@
+<div nz-row style="margin-bottom: 20px; display: flex; justify-content: flex-end; padding-right: 8%;">
+  <div nz-col>
+    <button nz-button nzType="primary" nzSize="large" (click)="downloadReport()" style="background-color: #217346; border-color: #217346; font-weight: 500; border-radius: 6px;">
+      📊 Descarcă Raport Excel (.xlsx)
+    </button>
+  </div>
+</div>
+
 <div nz-row>
   <div nz-col [nzXs]="{ span: 24 }" [nzLg]="{ span: 6, offset: 1 }">
     <nz-card nzTitle="Total Calories Burned" style="background-color: aliceblue;">
@@ -56,14 +64,13 @@
       <canvas #workoutLineChart> </canvas>
     </nz-card>
   </div>
+  
   <div nz-col [nzXs]="20" nzSm = "16" nzMd = "12" nzLg = "8" nzXl = "4">
-
-  </div>
+    </div>
 
   <div nz-col nzXs="2" nzSm = "4" nzMd = "6" nzLg = "8" nzXl = "10">
     <nz-card nzTitle = "Recent Activities" style="background-color: aliceblue;">
       <canvas #activityLineChart> </canvas>
     </nz-card>
   </div>
-
 </div>
