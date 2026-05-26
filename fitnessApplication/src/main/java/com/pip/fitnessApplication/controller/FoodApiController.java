@@ -9,15 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api/food")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class FoodApiController {
 
+    
     private final FoodApiService foodApiService;
+    
+    
     private final FoodService foodService;
 
+    
     @GetMapping("/search/{query}")
     public ResponseEntity<?> searchFood(@PathVariable String query) {
         FoodResponseDto result = foodApiService.searchFood(query);
@@ -29,6 +34,7 @@ public class FoodApiController {
         }
     }
 
+    
     @PostMapping("/{userId}")
     public ResponseEntity<?> postFood(@PathVariable Long userId, @RequestBody FoodDto dto) {
         try {
@@ -38,6 +44,7 @@ public class FoodApiController {
         }
     }
 
+    
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getFoods(@PathVariable Long userId) {
         try {

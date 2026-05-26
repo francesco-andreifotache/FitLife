@@ -38,15 +38,15 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    // 2. Aici definim exact ce aplicații au voie să comunice cu Backend-ul nostru
+    
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Permitem cererile doar de la Angular (portul 4200)
+        
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-        // Permitem toate metodele (GET, POST, OPTIONS etc.)
+        
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        // Permitem toate tipurile de date în header
+        
         configuration.setAllowedHeaders(Arrays.asList("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

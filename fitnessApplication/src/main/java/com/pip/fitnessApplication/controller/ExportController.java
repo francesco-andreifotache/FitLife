@@ -23,13 +23,13 @@ public class ExportController {
     byte[] excelContent = excelExportService.exportUserDataToExcel(userId);
 
     return ResponseEntity.ok()
-            // Numele fișierului
+            
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=FitLife_Raport.xlsx")
-            // ---- MODIFICARE: Forțăm browserul să NU salveze în cache ----
+            
             .header(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate")
             .header(HttpHeaders.PRAGMA, "no-cache")
             .header(HttpHeaders.EXPIRES, "0")
-            // -------------------------------------------------------------
+            
             .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
             .body(excelContent);
 }

@@ -26,7 +26,7 @@ public class Workout {
 
     private int caloriesBurned;
 
-    // Metoda reparată! Acum nu se mai apelează pe ea însăși.
+    
     public WorkoutDTO getWorkoutDTO() {
         WorkoutDTO workoutDTO = new WorkoutDTO();
 
