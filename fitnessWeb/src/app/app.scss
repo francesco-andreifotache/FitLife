@@ -11,39 +11,33 @@
   top: 0;
   bottom: 0;
   z-index: 10;
-  background: #001529; /* Culoarea standard închisă Ng-Zorro */
+  background: #001529; 
 }
 
-/* Zona cu poza și numele */
-/* Zona cu poza și numele */
+
 .logo {
   display: flex;
-  align-items: center; /* Centrare verticală robustă în interiorul barei */
+  align-items: center; 
   height: 64px;
-  padding: 0 16px; /* Padding ajustat ca să arate mai bine la stânga */
+  padding: 0 16px; 
   color: white;
   background: rgba(255, 255, 255, 0.1);
 }
 
 .avatar {
-  /* PASUL 1: Forțăm o dimensiune fixă și egală */
-  width: 36px; /* Am mărit-o puțin pentru vizibilitate */
-  height: 36px; /* Înălțime fixă, egală cu lățimea pentru un pătrat perfect */
+  width: 36px; 
+  height: 36px; 
 
-  /* PASUL 2: Cercul perfect */
-  border-radius: 50% !important; /* Facem colțurile 100% rotunde */
+  border-radius: 50% !important; 
 
-  /* PASUL 3: Centrarea imaginii în interiorul cercului */
-  object-fit: cover; /* Aceasta este cea mai importantă linie. Taie din marginile imaginii tale originale, astfel încât fața/logo-ul să rămână la mijlocul cercului fără a se deforma */
-  object-position: center; /* Ne asigurăm că centrul imaginii tale originale este aliniat cu centrul cercului */
+  object-fit: cover;
+  object-position: center;
 
-  /* Spațiere */
   margin-right: 12px;
 
-  /* Opțional: Adăugăm o border subțire ca să iasă în evidență pe fundal închis */
   border: 2px solid rgba(255, 255, 255, 0.7);
 
-  background-color: #fff; /* Fundal alb dacă logoul e transparent */
+  background-color: #fff;
 }
 
 .user_info {
@@ -56,63 +50,58 @@
   font-weight: 500;
 }
 
-/* Zona din dreapta (Header + Conținut) */
+/* Zona din dreapta*/
 .right-layout {
-  margin-left: 200px; /* Trebuie să fie egal cu lățimea Sidebar-ului */
-  background: #f0f2f5; /* Fundalul gri deschis din spatele conținutului */
+  margin-left: 200px;
+  background: #f0f2f5; 
   min-height: 100vh;
 }
 
-/* Bara albă de sus */
+/* Bara alba de sus */
 .header {
   background: #fff;
   padding: 0;
   height: 64px;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08); /* O umbră subtilă de separare */
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08); 
 }
 
-/* Spațiul alocat pentru paginile tale */
+
 nz-content {
   margin: 24px 16px 0;
   overflow: initial;
 }
 
-/* Pătratul alb în care se vor randa componentele tale */
+
 .inner-content {
   padding: 24px;
   background: #fff;
-  min-height: 360px; /* Îi dăm o formă până când pui conținut în el */
+  min-height: 360px;
   border-radius: 4px;
 }
 
-/* --- STILIZARE MENIU LATERAL (DARK THEME) --- */
+/*STILIZARE MENIU LATERAL*/
 
-/* Facem fundalul meniului transparent pentru a se contopi perfect cu Sider-ul */
 ::ng-deep .sider .ant-menu-dark {
   background-color: transparent !important;
 }
 
-/* Culoarea textului pentru butoanele normale (un alb ușor estompat) */
 ::ng-deep .sider .ant-menu-dark .ant-menu-item {
   color: rgba(255, 255, 255, 0.7) !important;
-  margin-top: 8px; /* Un pic de aerisire între butoane */
+  margin-top: 8px; 
 }
 
-/* Culoarea textului când pui mouse-ul pe un buton (alb curat) */
 ::ng-deep .sider .ant-menu-dark .ant-menu-item:hover {
   color: #ffffff !important;
 }
 
-/* Design-ul pentru butonul paginii curente (Activ) */
 ::ng-deep .sider .ant-menu-dark .ant-menu-item-selected {
   color: #ffffff !important;
-  background-color: #1890ff !important; /* Un albastru aprins pentru a evidenția selecția */
-  border-radius: 4px; /* Rotunjim puțin colțurile selecției */
+  background-color: #1890ff !important;
+  border-radius: 4px;
 }
 
-/* Dimensiunea și alinierea iconițelor din meniu */
 ::ng-deep .sider .ant-menu-dark .ant-menu-item .anticon {
-  font-size: 18px; /* Facem iconițele un pic mai mari */
+  font-size: 18px; 
   margin-right: 12px;
 }
 

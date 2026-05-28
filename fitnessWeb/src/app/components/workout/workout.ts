@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared-module';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { User } from '../../service/user';
-import { error } from 'console';
+
 
 @Component({
   selector: 'app-workout',
@@ -87,7 +87,7 @@ export class Workout {
     this.userService.deleteWorkout(id).subscribe({
       next: (res) => {
         this.message.success("Antrenamentul a fost șters!", { nzDuration: 3000 });
-        this.getWorkouts(); // Asigură-te că așa se numește funcția ta care aduce lista
+        this.getWorkouts(); 
       },
       error: (err) => {
         this.message.error("Eroare la ștergerea antrenamentului", { nzDuration: 3000 });

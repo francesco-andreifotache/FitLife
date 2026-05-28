@@ -51,7 +51,7 @@ export class Goal {
 
   getAllGoals(){
     this.userService.getGoals().subscribe(res => {
-      this.goals = res; // Salvăm datele curat
+      this.goals = res;
       this.cdr.markForCheck();
     });
   }
@@ -69,7 +69,7 @@ export class Goal {
     this.userService.deleteGoal(id).subscribe({
       next: (res) => {
         this.message.success("Obiectivul a fost șters!", { nzDuration: 3000 });
-        this.getAllGoals(); // Reîncărcăm lista ca să dispară de pe ecran
+        this.getAllGoals(); 
       },
       error: (err) => {
         this.message.error("Eroare la ștergerea obiectivului", { nzDuration: 3000 });

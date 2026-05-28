@@ -1,12 +1,9 @@
 import { Component, ChangeDetectorRef, OnInit, ViewChild, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, DatePipe } from '@angular/common'; 
 import { User } from '../../service/user';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzGridModule } from 'ng-zorro-antd/grid';
 import { SharedModule } from '../../shared/shared-module';
 import { CategoryScale, Chart } from 'chart.js/auto';
 
-// 1. Am lăsat DOAR importul pentru serviciul de export Excel
 import { ExportService } from '../../service/export.service';
 
 Chart.register(CategoryScale);
@@ -30,7 +27,6 @@ export class Dashboard implements OnInit {
   workoutChartInstance: any;
   activityChartInstance: any;
 
-  // 2. În constructor am lăsat doar exportService
   constructor(
     private userService: User,
     private datePipe: DatePipe,
@@ -59,7 +55,7 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // 3. Metoda citește acum ACUM direct din window.localStorage
+  
   downloadReport() {
     const userId = window.localStorage.getItem('userId'); 
     
@@ -70,15 +66,15 @@ export class Dashboard implements OnInit {
           const objectUrl = URL.createObjectURL(blob);
           a.href = objectUrl;
           
-          // Generăm un nume NOU de fiecare dată, bazat pe ora curentă
+          
           const acum = new Date().toLocaleTimeString().replace(/:/g, '-');
           a.download = `FitLife_Raport_${acum}.xlsx`;
           
-          // Adăugăm elementul în pagină temporar pentru a forța descărcarea curată
+          
           document.body.appendChild(a);
           a.click();
           
-          // Curățăm memoria browserului imediat după
+          
           document.body.removeChild(a);
           URL.revokeObjectURL(objectUrl);
         },

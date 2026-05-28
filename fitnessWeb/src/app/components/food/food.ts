@@ -18,7 +18,7 @@ export class Food {
 
   foodForm!: FormGroup;
   foods: any[] = [];
-  isSearching = false; // Folosit pentru a arăta o animație de încărcare pe butonul de Search
+  isSearching = false; 
 
   constructor(
     private fb: FormBuilder,
@@ -40,7 +40,7 @@ export class Food {
     this.getAllFoods();
   }
 
-  // Magia de conectare cu Edamam
+  // conectare cu Edamam
   searchAPI() {
     const foodName = this.foodForm.get('name')?.value;
     
@@ -49,13 +49,13 @@ export class Food {
       return;
     }
 
-    this.isSearching = true; // Pornim animația pe buton
+    this.isSearching = true; 
     
     this.userService.searchFood(foodName).subscribe({
       next: (res) => {
-        // Autocompletăm câmpurile din formular cu datele primite de la API
+        
         this.foodForm.patchValue({
-          name: res.name, // Numele frumos formatat de Edamam
+          name: res.name, 
           calories: res.calories,
           protein: res.protein,
           carbs: res.carbs,

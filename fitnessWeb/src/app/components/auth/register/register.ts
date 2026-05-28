@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
-import { User } from '../../../service/user';
 import { SharedModule } from '../../../shared/shared-module';
 
 import { AuthService } from '../../../service/auth/auth.service';
@@ -33,7 +32,7 @@ export class Register {
     });
   }
 
-  // Validator pentru a ne asigura că parolele coincid
+  
   confirmationValidator = (control: any): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
@@ -44,7 +43,7 @@ export class Register {
   };
 
   submitForm() {
-    // Folosim authService în loc de userService
+    
     this.authService.register(this.registerForm.value).subscribe({
       next: (res) => {
         localStorage.setItem('userId', res.userId);
@@ -52,7 +51,7 @@ export class Register {
         localStorage.setItem('token', res.jwt);
 
         this.message.success("Cont creat cu succes! Te poți loga.", { nzDuration: 3000 });
-        this.router.navigateByUrl('/login'); // Navigăm către dashboard după înregistrare
+        this.router.navigateByUrl('/login');
       },
       error: (err) => {
         this.message.error("Eroare la înregistrare: " + err.error, { nzDuration: 3000 });
